@@ -6,15 +6,20 @@ cls
 clear-host
 
 write-host("")
-write-host("Welcome to o365 Programatic tool by John Joseph Igna, please select from one of the following choices") -F Green
+write-host("o365 Programatic tool by John Joseph Igna") -F Green
 write-host("v 0.0.1") -F Green
 write-host("")
 write-host("Please select from one of the following choices") -F Green
 write-host("")
+write-host("General Operation")
 write-host("1 - Just connect to o365") -F Yellow
+write-host("")
+write-host("Mailbox Operations")
 write-host("2 - Gather DL Memberships") -F Yellow
 write-host("3 - Gather Forwarding Report") -F Yellow
 write-host("4 - Get User Mailbox Access") -F Yellow
+write-host("")
+write-host("Calendar Operations")
 write-host("5 - Get User Calendar Access") -F Yellow
 write-host("6 - Add User Calendar Access") -F Yellow
 write-host("")
@@ -86,31 +91,36 @@ if ($MainChoice -eq 1) {
 
 } elseif ($MainChoice -eq 5) {
         
-    write-host("Search for User First") -F Cyan
+    write-host("Search for User First using any part of the name") -F Cyan
     $UserSearch = read-host "Enter First Name "
-    get-mailbox *$UserSearch*
+    get-mailbox *$UserSearch* | Select Name
 
     write-host("")
+    write-host("Enter the Full Name of the Target Calendar Below")
     $UserTarget = read-host "Enter Target Name "
     ForEach ($mbx in Get-Mailbox) {Get-MailboxFolderPermission ($mbx.Name + ":\Calendar") | Where-Object {$_.User -like "$UserTarget"} | Select @{Name="Calendar Of";expression={($mbx.name)}},User,AccessRights}
 
 } elseif ($MainChoice -eq 6) {
         
     write-host("")
-    write-host("Search for User First") -F Cyan
-    $UserSearch1 = read-host "Enter First Name "
-    get-mailbox *$UserSearch*
+    write-host("Search for User First using any part of the name") -F Cyan
+    $UserSearch1 = read-host "Enter Search Criteria "
+    get-mailbox *$UserSearch* | Select Name,Alias
 
     write-host("")
+    write-host("Enter the alias of the Target Calendar Below")
     $UserTarget = read-host "Enter Target Alias "
     write-host("")
-    write-host("Search for User To Get Access") -F Cyan
-    $UserSearch2 = read-host "Enter First Name User "
-    get-mailbox *$UserSearch*
+    write-host("Search for User First that needs access using any part of the name") -F Cyan
+    $UserSearch2 = read-host "Enter Search Criteria "
+    get-mailbox *$UserSearch2* | Select Name,Alias
 
     write-host("")
+    write-host("Enter the alias of the Target User Below")
     $UsertoAdd = read-host "Enter Target Alias "
 
+    write-host("")
+    write-host("Select Permission to Apply")
     write-host("1 - Reviewer (Read)") -F Yellow
     write-host("2 - Author (Read/Write Own/Del Own") -F Yellow
     write-host("3 - Editor (Read/Write)") -F Yellow
