@@ -1,6 +1,3 @@
-#Project to add - Mailbox Folder Query
-#Get-MailboxFolderStatistics "jamesk" | select Name, FolderPath, ItemsInFolderAndSubfolders, FolderSize | export-csv -Path "C:\Users\ignaj\Desktop\JamesK Mailbox Size.csv"
-
 #Custom Powershell Script created by yours truly
 #John Joseph Igna
 #This needs to be Ran as Admin or on ISE running in Admin Mode
