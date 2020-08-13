@@ -35,7 +35,7 @@ write-host("Welcome, please select from one of the following choices") -F Green
 write-host("")
 write-host("1 - AD Operations") -F Yellow
 write-host("2 - o365 Operations") -F Yellow
-write-host("3 - Chocolatey (SW Installation Tool)") -F Yellow
+#write-host("3 - Chocolatey (SW Installation Tool)") -F Yellow
 write-host("")
 write-host("0 - Exit") -F Red
 write-host("")
@@ -335,6 +335,7 @@ if ($MainChoice -eq 1) {
 
 #Chocolatey Menu and Operations After this Line
 #==============================================
+<#
 } elseif ($MainChoice -eq 3) {
 
     write-host("")
@@ -353,6 +354,7 @@ if ($MainChoice -eq 1) {
         choco upgrade chocolatey -Y
 
     }
+#>
 
 } elseif ($MainChoice -eq 0) {
     exit
