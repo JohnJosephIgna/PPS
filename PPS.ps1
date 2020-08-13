@@ -2,6 +2,10 @@
 #John Joseph Igna
 #This needs to be Ran as Admin or on ISE running in Admin Mode
 
+#To Add
+#(Connect-MsolService)
+#Remove-MsolUser -UserPrincipalName "jthomas3595@ocgroupoconnor.onmicrosoft.com" -RemoveFromRecycleBin
+
 cls
 clear-host
 
@@ -81,7 +85,7 @@ if ($MainChoice -eq 1) {
             write-host("Successfully Exported to Desktop") -F Green
 
         } elseif ($Exporttype -eq "L" -OR $Exporttype -eq "l") {
-
+        
             get-aduser -Filter * -Properties * | select Name,@{N='LastLogonDate';E={[DateTime]::FromFileTime($_.LastLogon).ToString('dd/MM/yyyy')}} | export-csv -Path "$Outputpath"
             write-host("Successfully Exported to Desktop") -F Green
 
@@ -113,7 +117,9 @@ if ($MainChoice -eq 1) {
     cls
     write-host("o365 Operations") -F Green
     write-host("1 - Setup New Instance") -F Green
-    write-host("2 - Already Connected") -F Green
+    write-host("2 - Setup New Instance with MSOnline") -F Green
+    write-host("3 - Setup New Instance with S&C Connection") -F Green
+    write-host("4 - Already Connected") -F Green
     write-host("")
 
     $Setconnection = read-host "Enter Choice "
@@ -130,7 +136,34 @@ if ($MainChoice -eq 1) {
         write-host ("New Connection Established") -F Green
         write-host ("")
 
-    } elseif ($Setconnection -eq 2) {
+     } elseif ($Setconnection -eq 2) {
+
+        Get-PSSession | Remove-PSSession
+        $Office365Credentials  = Get-Credential
+        $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $Office365credentials -Authentication Basic –AllowRedirection
+        Import-PSSession $Session -AllowClobber | Out-Null
+
+        Connect-MsolService
+
+        cls
+        write-host ("New Connection Established with Connection to MSOnline") -F Green
+        write-host ("")
+
+     } elseif ($Setconnection -eq 3) {
+        
+        Get-PSSession | Remove-PSSession
+        $Office365Credentials  = Get-Credential
+        $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $Office365credentials -Authentication Basic –AllowRedirection
+        Import-PSSession $Session -AllowClobber | Out-Null
+        #Adding Security and Compliance Shell Connect
+        $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://ps.compliance.protection.outlook.com/powershell-liveid/ -Credential $Office365credentials -Authentication Basic -AllowRedirection
+        Import-PSSession $Session -DisableNameChecking
+
+        cls
+        write-host ("New Connection Established with Connection to Scurity and Compliance Shell") -F Green
+        write-host ("")
+
+    } elseif ($Setconnection -eq 4) {
         
         cls
         write-host ("Using Existing connection") -F Green
