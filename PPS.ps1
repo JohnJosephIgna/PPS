@@ -171,15 +171,15 @@ if ($MainChoice -eq 1) {
 
     }
 
-    write-host("o365 Operations") -F Green
-    write-host("")
-    write-host("1 - o365 Mailbox Report        | 5 - Mailbox Statistics Report") -F Yellow
-    write-host("2 - o365 Mailbox Sign-In Satus | 6 - Get User Mailbox Access") -F Yellow
-    write-host("3 - Gather DL Memberships      | 7 - Get User Calendar Access") -F Yellow
-    write-host("4 - Gather Forwarding Report   | 8 - Add User Calendar Access") -F Yellow
-    write-host("")
-    write-host("0 - Custom Commands (Advanced Users)") -F Yellow
-    write-host("")
+    write-host ("o365 Operations") -F Green
+    write-host ("")
+    write-host '1 - o365 Mailbox Report        | 5 - Mailbox Statistics Report' -F Yellow
+    write-host '2 - o365 Mailbox Sign-In Satus | 6 - Get User Mailbox Access' -F Yellow
+    write-host '3 - Gather DL Memberships      | 7 - Get User Calendar Access' -F Yellow
+    write-host '4 - Gather Forwarding Report   | 8 - Add User Calendar Access' -F Yellow
+    write-host ("")
+    write-host ("0 - Custom Commands (Advanced Users)") -F Yellow
+    write-host ("")
 
     $SubChoice2 = read-host "Enter Choice "
     write-host("")
