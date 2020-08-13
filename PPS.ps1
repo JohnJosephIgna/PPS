@@ -333,29 +333,6 @@ if ($MainChoice -eq 1) {
 
     }
 
-#Chocolatey Menu and Operations After this Line
-#==============================================
-<#
-} elseif ($MainChoice -eq 3) {
-
-    write-host("")
-    write-host("1 - Install Chocolatey") -F Yellow
-    write-host("2 - Upgrade Chocolatey") -F Yellow
-    write-host("")
-
-    $SubChoice3 = read-host "Enter Choice "
-
-    if ($SubChoice3 -eq 1) {
-
-        Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
-    } elseif ($SubChoice3 -eq 2) {
-
-        choco upgrade chocolatey -Y
-
-    }
-#>
-
 } elseif ($MainChoice -eq 0) {
     exit
 }
